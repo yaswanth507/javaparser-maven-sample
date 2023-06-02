@@ -1,13 +1,45 @@
 pipeline {
-  agent any
-  tools {
-    maven 'maven-3.6.3' 
-  }
-  stages {
-    stage ('Build') {
-      steps {
-        sh 'mvn clean package'
-      }
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git 'https://github.com/yaswanth507/javaparser-maven-sample.git'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                tool 'maven' // Configure the Maven tool name in Jenkins
+                sh 'mvn clean install'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                sh 'mvn test'
+            }
+        }
+
+        stage('Package') {
+            steps {
+                sh 'mvn package'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                sh 'mvn deploy'
+            }
+        }
     }
-  }
+
+    post {
+        success {
+            echo 'Build successful!'
+        }
+        failure {
+            echo 'Build failed!'
+        }
+    }
 }
