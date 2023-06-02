@@ -10,7 +10,7 @@ pipeline {
 
         stage('Build') {
             steps {
-                tool 'maven' // Configure the Maven tool name in Jenkins
+                tool 'Maven' // Configure the Maven tool name in Jenkins
                 sh 'mvn clean install'
             }
         }
