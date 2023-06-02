@@ -4,6 +4,7 @@ pipeline {
         maven "MAVEN"
         jdk "java"
     }
+        stages {
         stage('Build') {
             steps {
                 dir("/var/lib/jenkins/workspace/mavenpipeline/pipeline") {
